@@ -2,12 +2,12 @@
 
 namespace AssistedMindfulness\Browsershot;
 
+use AssistedMindfulness\Browsershot\Exceptions\CouldNotTakeBrowsershot;
 use Spatie\Image\Image;
 use Spatie\Image\Manipulations;
-use Symfony\Component\Process\Process;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
-use AssistedMindfulness\Browsershot\Exceptions\CouldNotTakeBrowsershot;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 /** @mixin \Spatie\Image\Manipulations */
 class Browsershot
