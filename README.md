@@ -1,8 +1,6 @@
-# Convert a webpage to an image or pdf using headless Chrome
+# Browsershot
 
-The package can convert a webpage to an image or pdf. The conversion is done behind the screens by Google Chrome.
-
-Here's a quick example:
+The package can convert a webpage to an image or pdf. The conversion is done behind the screens by Google Chrome. Here's a quick example:
 
 ```php
 use AssistedMindfulness\Browsershot\Browsershot;
