@@ -1,5 +1,7 @@
 # Browsershot
 
+[![Tests](https://github.com/Assisted-Mindfulness/browsershot/actions/workflows/phpunit.yaml/badge.svg)](https://github.com/Assisted-Mindfulness/browsershot/actions/workflows/phpunit.yaml)
+
 The package can convert a webpage to an image or pdf. The conversion is done behind the screens by Google Chrome. Here's a quick example:
 
 ```php
