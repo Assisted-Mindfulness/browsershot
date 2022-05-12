@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/Assisted-Mindfulness/browsershot/actions/workflows/phpunit.yaml/badge.svg)](https://github.com/Assisted-Mindfulness/browsershot/actions/workflows/phpunit.yaml)
 
-The package can convert a webpage to an image or pdf. The conversion is done behind the screens by Google Chrome. This package has been tested on MacOS and Ubuntu. If you use another OS your mileage may vary. Chrome should be installed on your system.
+The package can convert a webpage to an image or PDF. The conversion is done behind the screens by Google Chrome. This package has been tested on MacOS and Ubuntu. If you use another OS your mileage may vary. Chrome should be installed on your system.
 
 On a [Forge](https://forge.laravel.com) provisioned Ubuntu server you can install the latest stable version of Chrome like this:
 
