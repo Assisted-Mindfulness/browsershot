@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Browsershot\Test;
+namespace AssistedMindfulness\Browsershot\Test;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
