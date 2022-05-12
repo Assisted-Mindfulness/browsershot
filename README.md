@@ -30,7 +30,7 @@ Browsershot::url('https://example.com')->bodyHtml(); // returns the html of the 
 
 ## Requirements
 
-This package has been tested on MacOS and Ubuntu. If you use another OS your mileage may vary. Chrome 59 or higher should be installed on your system.
+This package has been tested on MacOS and Ubuntu. If you use another OS your mileage may vary. Chrome should be installed on your system.
 
 On a [Forge](https://forge.laravel.com) provisioned Ubuntu server you can install the latest stable version of Chrome like this:
 
