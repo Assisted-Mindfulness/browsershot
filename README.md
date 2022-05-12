@@ -2,37 +2,7 @@
 
 [![Tests](https://github.com/Assisted-Mindfulness/browsershot/actions/workflows/phpunit.yaml/badge.svg)](https://github.com/Assisted-Mindfulness/browsershot/actions/workflows/phpunit.yaml)
 
-The package can convert a webpage to an image or pdf. The conversion is done behind the screens by Google Chrome. Here's a quick example:
-
-```php
-use AssistedMindfulness\Browsershot\Browsershot;
-
-// an image will be saved
-Browsershot::url('https://example.com')->save($pathToImage);
-```
-
-It will save a pdf if the path passed to the `save` method has a `pdf` extension.
-
-```php
-// a pdf will be saved
-Browsershot::url('https://example.com')->save('example.pdf');
-```
-
-You can also use an arbitrary html input, simply replace the `url` method with `html`:
-
-```php
-Browsershot::html('<h1>Hello world!!</h1>')->save('example.pdf');
-```
-
-Browsershot also can get the body of an html page after JavaScript has been executed:
-
-```php
-Browsershot::url('https://example.com')->bodyHtml(); // returns the html of the body
-```
-
-## Requirements
-
-This package has been tested on MacOS and Ubuntu. If you use another OS your mileage may vary. Chrome should be installed on your system.
+The package can convert a webpage to an image or pdf. The conversion is done behind the screens by Google Chrome. This package has been tested on MacOS and Ubuntu. If you use another OS your mileage may vary. Chrome should be installed on your system.
 
 On a [Forge](https://forge.laravel.com) provisioned Ubuntu server you can install the latest stable version of Chrome like this:
 
@@ -143,11 +113,12 @@ Browsershot also can get the body of an html page after JavaScript has been exec
 Browsershot::url('https://example.com')->bodyHtml(); // returns the html of the body
 ```
 
-## Credits
 
-- [Freek Van der Herten](https://github.com/freekmurze)
-- [All Contributors](../../contributors)
+You can also use an arbitrary html input, simply replace the `url` method with `html`:
 
+```php
+Browsershot::html('<h1>Hello world!!</h1>')->save('example.pdf');
+```
 
 ## License
 
