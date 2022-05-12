@@ -14,6 +14,12 @@ sudo apt-get -f install
 sudo apt-get install google-chrome-stable
 ```
 
+Also, if necessary, you need to install additional resources, such as fonts for displaying emoji:
+
+```bash
+sudo apt-get install fonts-noto-color-emoji
+```
+
 ## Installation
 
 This package can be installed through Composer.
