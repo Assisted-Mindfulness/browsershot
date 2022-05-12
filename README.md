@@ -128,4 +128,6 @@ Browsershot::html('<h1>Hello world!!</h1>')->save('example.pdf');
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+This is a fork of the [spatie/browsershot](https://github.com/spatie/browsershot) project which does not require Node and Puppeteer to be installed on your web server.
