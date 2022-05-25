@@ -262,7 +262,7 @@ class Browsershot
         return $command;
     }
 
-    protected function createPdfCommand($targetPath): string
+    public function createPdfCommand($targetPath): string
     {
         $url = $this->html ? $this->createTemporaryHtmlFile() : $this->url;
 
