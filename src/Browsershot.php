@@ -289,7 +289,7 @@ class Browsershot
         }
 
         if ($this->virtualTimeBudget !== 0) {
-            $command .= ' --virtual-time-budget'.$this->virtualTimeBudget;
+            $command .= ' --virtual-time-budget='.$this->virtualTimeBudget;
         }
 
         $command .= ' '.escapeshellarg($url);
