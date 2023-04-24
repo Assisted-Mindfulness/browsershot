@@ -24,6 +24,8 @@ class Browsershot
     protected $hideScrollbars = true;
     protected $userAgent = '';
     protected $deviceScaleFactor = 1;
+    protected $runAllCompositorStagesBeforeDraw = false;
+    protected $virtualTimeBudget = 0;
 
     protected $temporaryHtmlDirectory;
 
@@ -278,8 +280,16 @@ class Browsershot
             $command .= ' --hide-scrollbars';
         }
 
+        if ($this->runAllCompositorStagesBeforeDraw) {
+            $command .= ' --run-all-compositor-stages-before-draw';
+        }
+
         if (! empty($this->userAgent)) {
             $command .= ' --user-agent='.escapeshellarg($this->userAgent);
+        }
+
+        if ($this->virtualTimeBudget !== 0) {
+            $command .= ' --virtual-time-budget'.$this->virtualTimeBudget;
         }
 
         $command .= ' '.escapeshellarg($url);
@@ -310,5 +320,26 @@ class Browsershot
         }
 
         return ChromeFinder::forCurrentOperatingSystem();
+    }
+
+    public function enableRunAllCompositorStagesBeforeDraw()
+    {
+        $this->runAllCompositorStagesBeforeDraw = true;
+
+        return $this;
+    }
+
+    public function disableRunAllCompositorStagesBeforeDraw()
+    {
+        $this->runAllCompositorStagesBeforeDraw = false;
+
+        return $this;
+    }
+
+    public function virtualTimeBudget(int $virtualTimeBudget)
+    {
+        $this->virtualTimeBudget = $virtualTimeBudget;
+
+        return $this;
     }
 }
