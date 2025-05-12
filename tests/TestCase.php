@@ -14,19 +14,19 @@ class TestCase extends BaseTestCase
 
         foreach ($files as $file) {
             if (! in_array($file, ['.', '..', '.gitignore'])) {
-                unlink("{$tempDirPath}/{$file}");
+                unlink(sprintf('%s/%s', $tempDirPath, $file));
             }
         }
     }
 
-    public function assertMimeType($expectedMimeType, $path)
+    public function assertMimeType($expectedMimeType, $path): void
     {
         $actualMimeType = mime_content_type($path);
 
         $this->assertEquals($expectedMimeType, $actualMimeType, 'MimeType did not match');
     }
 
-    public function skipIfNotRunningonMacOS()
+    public function skipIfNotRunningOnMacOS(): void
     {
         if (PHP_OS !== 'Darwin') {
             $this->markTestSkipped('Skipping because not running MacOS');

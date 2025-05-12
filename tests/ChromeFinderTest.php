@@ -4,19 +4,20 @@ namespace AssistedMindfulness\Browsershot\Test;
 
 use AssistedMindfulness\Browsershot\ChromeFinder;
 use AssistedMindfulness\Browsershot\Exceptions\CouldNotTakeBrowsershot;
+use PHPUnit\Framework\Attributes\Test;
 
 class ChromeFinderTest extends TestCase
 {
-    /** @test */
-    public function it_can_determine_the_location_of_chrome_automatically()
+    #[Test]
+    public function itCanDetermineTheLocationOfChromeAutomatically(): void
     {
-        $this->skipIfNotRunningonMacOS();
+        $this->skipIfNotRunningOnMacOS();
 
         $this->assertStringContainsString('Chrome', ChromeFinder::forCurrentOperatingSystem());
     }
 
-    /** @test */
-    public function it_will_throw_an_exception_for_an_unsupported_os()
+    #[Test]
+    public function itWillThrowAnExceptionForAnUnsupportedOs(): void
     {
         $this->expectException(CouldNotTakeBrowsershot::class);
 

@@ -2,22 +2,20 @@
 
 namespace AssistedMindfulness\Browsershot\Exceptions;
 
-use Exception;
+use RuntimeException;
 use Symfony\Component\Process\Process;
 
-class CouldNotTakeBrowsershot extends Exception
+class CouldNotTakeBrowsershot extends RuntimeException
 {
-    public static function operatingSystemNotSupported(string $operatingSystem)
+    public static function operatingSystemNotSupported(string $operatingSystem): static
     {
-        return new static("The current operating system `{$operatingSystem}` is not supported");
+        return new static(sprintf('The current operating system `%s` is not supported', $operatingSystem));
     }
 
     /**
      * @param array|string $locations
-     *
-     * @return static
      */
-    public static function chromeNotFound($locations)
+    public static function chromeNotFound($locations): static
     {
         if (! is_array($locations)) {
             $locations = [$locations];
@@ -25,13 +23,13 @@ class CouldNotTakeBrowsershot extends Exception
 
         $locations = implode(', ', $locations);
 
-        return new static("Did not find Chrome at: {$locations}");
+        return new static('Did not find Chrome at: '.$locations);
     }
 
-    public static function chromeOutputEmpty(string $screenShotPath, Process $process)
+    public static function chromeOutputEmpty(string $screenShotPath, Process $process): static
     {
         $errorOutput = $process->getErrorOutput();
 
-        return new static("For some reason Chrome did not write a file at `{$screenShotPath}`. Error output: `{$errorOutput}`");
+        return new static(sprintf('For some reason Chrome did not write a file at `%s`. Error output: `%s`', $screenShotPath, $errorOutput));
     }
 }
