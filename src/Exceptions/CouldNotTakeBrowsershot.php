@@ -2,10 +2,10 @@
 
 namespace AssistedMindfulness\Browsershot\Exceptions;
 
-use Exception;
+use RuntimeException;
 use Symfony\Component\Process\Process;
 
-class CouldNotTakeBrowsershot extends Exception
+class CouldNotTakeBrowsershot extends RuntimeException
 {
     public static function operatingSystemNotSupported(string $operatingSystem): static
     {
