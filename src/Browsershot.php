@@ -40,7 +40,7 @@ class Browsershot
         return (new static)->setHtml($html);
     }
 
-    public function __construct(protected string $url = ''){}
+    public function __construct(protected string $url = '') {}
 
     public function setUrl(string $url): static
     {
