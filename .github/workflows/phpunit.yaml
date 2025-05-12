@@ -1,8 +1,11 @@
 name: Tests
 
 on:
-    pull_request:
     push:
+        branches:
+            - master
+            - '*.x'
+    pull_request:
         paths:
             - '.github/workflows/**'
             - '**.php'
