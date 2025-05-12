@@ -3,16 +3,17 @@
 namespace AssistedMindfulness\Browsershot\Test;
 
 use AssistedMindfulness\Browsershot\Browsershot;
+use PHPUnit\Framework\Attributes\Test;
 
 class BrowsershotTest extends TestCase
 {
-    public function setUp():void
+    protected function setUp(): void
     {
         $this->emptyTempDirectory();
     }
 
-    /** @test */
-    public function it_can_get_the_body_html()
+    #[Test]
+    public function itCanGetTheBodyHtml(): void
     {
         $html = $this
             ->getBrowsershotForCurrentEnvironment()
@@ -21,8 +22,8 @@ class BrowsershotTest extends TestCase
         $this->assertStringContainsString('<h1>Example Domain</h1>', $html);
     }
 
-    /** @test */
-    public function it_can_take_a_screenshot()
+    #[Test]
+    public function itCanTakeAScreenshot(): void
     {
         $targetPath = __DIR__.'/temp/testScreenshot.png';
 
@@ -33,8 +34,8 @@ class BrowsershotTest extends TestCase
         $this->assertFileExists($targetPath);
     }
 
-    /** @test */
-    public function it_can_take_a_screenshot_of_arbitrary_html()
+    #[Test]
+    public function itCanTakeAScreenshotOfArbitraryHtml(): void
     {
         $targetPath = __DIR__.'/temp/testScreenshot.png';
 
@@ -44,8 +45,8 @@ class BrowsershotTest extends TestCase
         $this->assertFileExists($targetPath);
     }
 
-    /** @test */
-    public function it_can_take_a_high_density_screenshot()
+    #[Test]
+    public function itCanTakeAHighDensityScreenshot(): void
     {
         $targetPath = __DIR__.'/temp/testScreenshot.png';
 
@@ -57,8 +58,8 @@ class BrowsershotTest extends TestCase
         $this->assertFileExists($targetPath);
     }
 
-    /** @test */
-    public function it_can_save_a_pdf_by_using_the_pdf_extension()
+    #[Test]
+    public function itCanSaveAPdfByUsingThePdfExtension(): void
     {
         $targetPath = __DIR__.'/temp/testPdf.pdf';
 
@@ -68,68 +69,67 @@ class BrowsershotTest extends TestCase
 
         $this->assertFileExists($targetPath);
 
-        $this->assertEquals('application/pdf', mime_content_type($targetPath));
+        $this->assertMimeType('application/pdf', $targetPath);
     }
 
-    /** @test */
-    public function it_can_use_the_methods_of_the_image_package()
+    #[Test]
+    public function itCanSaveAPngByUsingThePngExtension(): void
     {
-        $targetPath = __DIR__.'/temp/testScreenshot.jpg';
+        $targetPath = __DIR__.'/temp/testScreenshot.png';
 
         $this
             ->getBrowsershotForCurrentEnvironment()
-            ->format('jpg')
             ->save($targetPath);
 
         $this->assertFileExists($targetPath);
 
-        $this->assertMimeType('image/jpeg', $targetPath);
+        $this->assertMimeType('image/png', $targetPath);
     }
 
-    /** @test */
-    public function it_can_create_a_command_to_generate_a_screenshot()
+    #[Test]
+    public function itCanCreateACommandToGenerateAScreenshot(): void
     {
         $command = Browsershot::url('https://example.com')
             ->setChromePath('chrome')
             ->createScreenshotCommand('workingDir');
 
-        $this->assertEquals("'chrome' --headless --screenshot=workingDir/screenshot.png 'https://example.com' --disable-gpu --hide-scrollbars", $command);
+        $this->assertSame("'chrome' --headless --screenshot=workingDir/screenshot.png 'https://example.com' --disable-gpu --hide-scrollbars", $command);
     }
 
-    /** @test */
-    public function it_can_enable_the_usage_of_the_gpu()
+    #[Test]
+    public function itCanEnableTheUsageOfTheGpu(): void
     {
         $command = Browsershot::url('https://example.com')
             ->setChromePath('chrome')
             ->enableGpu()
             ->createScreenshotCommand('workingDir');
 
-        $this->assertEquals("'chrome' --headless --screenshot=workingDir/screenshot.png 'https://example.com' --hide-scrollbars", $command);
+        $this->assertSame("'chrome' --headless --screenshot=workingDir/screenshot.png 'https://example.com' --hide-scrollbars", $command);
     }
 
-    /** @test */
-    public function it_can_show_scrollbars()
+    #[Test]
+    public function itCanShowScrollbars(): void
     {
         $command = Browsershot::url('https://example.com')
             ->setChromePath('chrome')
             ->showScrollbars()
             ->createScreenshotCommand('workingDir');
 
-        $this->assertEquals("'chrome' --headless --screenshot=workingDir/screenshot.png 'https://example.com' --disable-gpu", $command);
+        $this->assertSame("'chrome' --headless --screenshot=workingDir/screenshot.png 'https://example.com' --disable-gpu", $command);
     }
 
-    /** @test */
-    public function it_can_use_given_user_agent()
+    #[Test]
+    public function itCanUseGivenUserAgent(): void
     {
         $command = Browsershot::url('https://example.com')
             ->setChromePath('chrome')
             ->userAgent('my_special_snowflake')
             ->createScreenshotCommand('workingDir');
 
-        $this->assertEquals("'chrome' --headless --screenshot=workingDir/screenshot.png 'https://example.com' --disable-gpu --hide-scrollbars --user-agent='my_special_snowflake'", $command);
+        $this->assertSame("'chrome' --headless --screenshot=workingDir/screenshot.png 'https://example.com' --disable-gpu --hide-scrollbars --user-agent='my_special_snowflake'", $command);
     }
 
-    protected function getBrowsershotForCurrentEnvironment($url = 'https://example.com'): Browsershot
+    protected function getBrowsershotForCurrentEnvironment(string $url = 'https://example.com'): Browsershot
     {
         return $this->configureForCurrentEnvironment(Browsershot::url($url));
     }

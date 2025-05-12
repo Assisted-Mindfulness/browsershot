@@ -1,47 +1,52 @@
 name: Tests
 
-on: [push,pull_request]
+on:
+    pull_request:
+    push:
+        paths:
+            - '.github/workflows/**'
+            - '**.php'
+            - 'phpunit.xml'
+            - 'composer.json'
+            - 'composer.lock'
+    schedule:
+        - cron: '0 0 * * *'
 
 jobs:
     phpunit:
-        runs-on: ${{ matrix.os }}
+        runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
-                php: [8.2, 8.1]
-                os: [ubuntu-latest]
-                laravel: [10.*]
+                php: [8.4, 8.3, 8.2]
                 dependency-version: [prefer-lowest, prefer-stable]
-                include:
-                    - laravel: 10.*
-                      testbench: 8.*
 
-        name: P${{ matrix.php }} - ${{ matrix.os }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
+        name: P${{ matrix.php }} - Ubuntu - ${{ matrix.dependency-version }}
 
         steps:
             - name: Checkout code 🛎️
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Cache dependencies 🔧
-              uses: actions/cache@v2
+              uses: actions/cache@v4
               with:
                   path: ~/.composer/cache/files
-                  key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-
-            - uses: browser-actions/setup-chrome@latest
-            - run: chrome --version
+                  key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
             - name: Setup PHP 🔧
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php }}
-                  extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+                  extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo, redis
                   coverage: none
                   tools: composer:v2
 
+            - uses: browser-actions/setup-chrome@latest
+            - run: chrome --version
+
             - name: Install dependencies 🔧
               run: |
-                  composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
                   composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+
             - name: Execute tests (Unit and Feature tests) via PHPUnit 🧪
               run: vendor/bin/phpunit
